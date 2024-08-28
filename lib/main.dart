@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stoxplay/common/widgets/app_component_base.dart';
-import 'package:stoxplay/common/widgets/fade_page_route_builder.dart';
-import 'package:stoxplay/presentation/pages/login_page.dart';
-import 'package:stoxplay/common/routes.dart';
-import 'package:stoxplay/common/strings.dart';
+import 'package:stoxplay/shared/shared.dart';
+import 'package:stoxplay/shared/utils/routes.dart';
+import 'package:stoxplay/shared/widgets/app_component_base.dart';
+import 'package:stoxplay/shared/widgets/fade_page_route_builder.dart';
+import 'package:stoxplay/presentation/pages/auth/login_page.dart';
+import 'package:stoxplay/shared/constants/strings.dart';
 import 'package:stoxplay/presentation/pages/splash_screen.dart';
 
 void main() {
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
         title: Strings.stoxplay,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colorPrimary),
+          useMaterial3: true,datePickerTheme: DatePickerThemeData(headerBackgroundColor: AppColors.gradientTwo)
         ),
         onGenerateRoute: (RouteSettings settings) {
           final routes = Routes.getRoutes;
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           }
           return null;
         },
+        routes: Routes.getRoutes,
         home: SplashScreen(), // Use the SplashScreen widget here
       ),
     );
