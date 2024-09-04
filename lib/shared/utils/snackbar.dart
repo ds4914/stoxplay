@@ -1,11 +1,12 @@
 import 'package:stoxplay/shared/shared.dart';
 
-void snackBarUtil({
+void showSnackBar({
   required BuildContext context,
   required String message,
   Color backgroundColor = AppColors.colorSecondary, // Default background color
   int durationInSeconds = 3, // Default duration
 }) {
+  ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Align(

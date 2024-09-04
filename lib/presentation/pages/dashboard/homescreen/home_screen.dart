@@ -13,40 +13,38 @@ class HomeScreen extends StatelessWidget {
       top: false,
       child: DefaultTabController(
         length: 2,
-        child: DashboardBackGround(
-          child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: PreferredSize(
-                preferredSize: Size.fromHeight(80.h),
-                child: HomeScreenAppbar()),
-            body: Column(
-              children: [
-                CarouselSlider(
-                    items: [
-                      Image.asset('assets/images/caraousel_item1.jfif'),
-                      Image.asset('assets/images/caraousel_item2.jfif'),
+        child: Scaffold(
+          backgroundColor: AppColors.gradientOne,
+          appBar: PreferredSize(
+              preferredSize: Size.fromHeight(80.h),
+              child: HomeScreenAppbar()),
+          body: Column(
+            children: [
+              CarouselSlider(
+                  items: [
+                    Image.asset('assets/images/caraousel_item1.jfif'),
+                    Image.asset('assets/images/caraousel_item2.jfif'),
+                  ],
+                  options: CarouselOptions(
+                    height: 100.h,
+                    autoPlay: true,
+                    pageSnapping: true,
+                  )),
+              SizedBox(
+                height: 20.h,
+              ),
+              tabBar(),
+              Expanded(
+                child: TabBarView(children: [
+                  playView(),
+                  Column(
+                    children: [
+                      TextView(text: Strings.learn),
                     ],
-                    options: CarouselOptions(
-                      height: 100.h,
-                      autoPlay: true,
-                      pageSnapping: true,
-                    )),
-                SizedBox(
-                  height: 20.h,
-                ),
-                tabBar(),
-                Expanded(
-                  child: TabBarView(children: [
-                    playView(),
-                    Column(
-                      children: [
-                        TextView(text: Strings.learn),
-                      ],
-                    )
-                  ]),
-                )
-              ],
-            ),
+                  )
+                ]),
+              )
+            ],
           ),
         ),
       ),
@@ -120,9 +118,7 @@ class HomeScreen extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(10.r)),
                                     child: Image.asset(
-                                      'assets/images/app_icon.png',
-                                      height: 50.h,
-                                      width: 50.w,
+                                      StaticData.data[index]['image'],
                                     ).paddingSymmetric(horizontal: 5.w)),
                                 TextView(
                                         fontSize: 12.sp,

@@ -6,4 +6,6 @@ class RouteList{
   static const String homeScreen = '/homeScreen';
   static const String dashboardScreen = '/dashboardScreen';
   static const String contestScreen = '/contestScreen';
+  static const String stockSelectionScreen = '/stockSelectionScreen';
+  static const String battleGroundScreen ='/battleGroundScreen';
 }

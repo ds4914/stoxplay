@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                           checkValue
                               ? Navigator.pushNamedAndRemoveUntil(context,
                                   RouteList.otpScreen, (route) => false)
-                              : snackBarUtil(
+                              : showSnackBar(
                                   context: context,
                                   message:
                                       Strings.pleaseCheckTermsAndConditions);

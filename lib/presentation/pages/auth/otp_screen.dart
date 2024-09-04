@@ -4,6 +4,7 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import '../../../shared/shared.dart';
 import '../../../shared/widgets/common_background.dart';
+import '../../../shared/widgets/otp_widget.dart';
 
 class OtpScreen extends StatefulWidget {
   OtpScreen({super.key});
@@ -89,21 +90,9 @@ class _OtpScreenState extends State<OtpScreen> {
                                   '${Strings.resendIn}${_start.toString()} sec'),
                         ],
                       ).paddingRight(10.w),
-                      OtpTextField(
-                        numberOfFields: 4,
-                        borderRadius: BorderRadius.all(Radius.circular(20.r)),
-                        showFieldAsBox: false,
-                        hasCustomInputDecoration: true,
-                        fieldWidth: 60.w,
-                        alignment: Alignment.center,
-                        decoration: InputDecoration(
-                          counterText: '',
-                          fillColor: AppColors.white,
-                          filled: true,
-                        ),
-                      ),
+                      OtpWidget(length: 4, onchange: (String ) {  },),
                       SizedBox(
-                        height: 20.h,
+                        height: 10.h,
                       ),
                       CommonButton(
                         title: Strings.verify,
@@ -118,7 +107,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                 ),
               ],
-            ).paddingSymmetric(horizontal: 20.w),
+            ).paddingSymmetric(horizontal: 10.w),
             Column(
               children: [
                 TextView(

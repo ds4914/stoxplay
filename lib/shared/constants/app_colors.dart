@@ -9,6 +9,7 @@ class AppColors{
   static const Color gradientThree = Color(0xff3300D2);
   static const Color grey = Colors.white70;
   static const Color orange = Colors.orange;
+  static const Color upButtonColor = Color(0xff38EE06);
   static const Color lightGrey = Colors.white24;
   static const Color lightTextColor = Colors.black26;
   static const Color white = Colors.white;
@@ -128,7 +129,7 @@ class AppColors{
   static const Color colorAssignmentLightest = Color(0x1A2E92FA);
   static const Color colorPresentColour = Color(0xff008000);
   static const Color colorPresentColourLightest = Color(0x1A008000);
-  static const Color colorAbsentColour = Color(0xffFF0000);
+  static const Color downButtonColor = Color(0xffFF0000);
   static const Color colorAbsentColourLightest = Color(0x1AFF0000);
   static const Color colorHalfDay = Color(0xff20b2aa);
   static const Color colorHalfDayLightest = Color(0x1A20B2AA);

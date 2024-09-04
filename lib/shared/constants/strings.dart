@@ -40,5 +40,5 @@ class Strings{
   static const String monitor = "Monitor";
   static const String sectorsPlay = "Sector's Play";
   static const String indianStockMarketChampionship = "Indian Stock Market Championship";
-
+  static const String selectStocks = "Select Stocks";
 }

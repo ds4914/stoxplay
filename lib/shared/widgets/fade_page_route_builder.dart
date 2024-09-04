@@ -19,7 +19,7 @@ class FadePageRouteBuilder<T> extends PageRouteBuilder<T> {
   FadePageRouteBuilder({
     required this.builder,
     required this.settings,
-    this.transitionDuration = const Duration(milliseconds: 1000),
+    this.transitionDuration = const Duration(seconds: 1),
     this.transitionCurve = Curves.ease,
   }) : super(
     pageBuilder: (context, animation, secondaryAnimation) => builder(context),
@@ -37,7 +37,6 @@ class FadePageRouteBuilder<T> extends PageRouteBuilder<T> {
         child: StreamBuilder<bool>(
           stream: AppComponentBase.instance.progressDialogStream,
           builder: (context, snapshot) {
-            // Return the child wrapped with PopScope based on the progress dialog state.
             return PopScope(
               canPop: !(snapshot.data ?? false),
               child: child,
