@@ -5,14 +5,32 @@ sealed class StockSelectionState {}
 
 final class StockSelectionInitial extends StockSelectionState {}
 
-final class StockSelectionListState extends StockSelectionState {
-  final List<SelectedStock>? selectedStockList;
-  final Map<String,dynamic>? stockList;
-  StockSelectionListState({this.selectedStockList, this.stockList});
+class StockSelectionLoadedState extends StockSelectionState {
+  final List<int>? upSelectedStock;
+  final List<int>? downSelectedStock;
+  final List<bool>? moreButtonClicked;
+  bool? showSnackBarForMore = false;
+  bool? showSnackBarForStockSelection = false;
+
+  StockSelectionLoadedState(
+      {this.upSelectedStock,
+      this.showSnackBarForMore,
+      this.downSelectedStock,
+      this.moreButtonClicked,
+      this.showSnackBarForStockSelection});
 }
 
-final class StockSelectedState extends StockSelectionState {
-  final bool? isSelected;
-  StockSelectedState(this.isSelected);
+class LeaderClickedState extends StockSelectionState {
+  final int? leaderIndex;
+  LeaderClickedState({required this.leaderIndex});
 }
 
+class CoLeaderClickedState extends StockSelectionState {
+  final int? coLeaderIndex;
+  CoLeaderClickedState({required this.coLeaderIndex});
+}
+
+class ViceLeaderClickedState extends StockSelectionState {
+  final int? viceLeaderIndex;
+  ViceLeaderClickedState({required this.viceLeaderIndex});
+}
