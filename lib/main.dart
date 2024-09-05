@@ -7,6 +7,7 @@ import 'package:stoxplay/shared/widgets/fade_page_route_builder.dart';
 import 'package:stoxplay/presentation/pages/auth/login_page.dart';
 import 'package:stoxplay/shared/constants/strings.dart';
 import 'package:stoxplay/presentation/pages/splash_screen.dart';
+GlobalKey<ScaffoldMessengerState> snackBarKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MaterialApp(
-        title: Strings.stoxplay,
+        title: Strings.stoxplay,scaffoldMessengerKey: snackBarKey,
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colorPrimary),
