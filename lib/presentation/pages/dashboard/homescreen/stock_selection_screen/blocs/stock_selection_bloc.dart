@@ -26,6 +26,9 @@ class StockSelectionBloc extends Bloc<StockSelectionEvent, StockSelectionState> 
             event.downSelectedStock!.add(event.index!);
           }
         }
+        if(event.upSelectedStock!.length + event.downSelectedStock!.length == 10){
+          event.showSnackBar = true;
+        }
       } else {
         event.showSnackBar = true;
       }

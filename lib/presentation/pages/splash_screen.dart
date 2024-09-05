@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void _navigateToLogin() async {
     await Future.delayed(Duration(seconds: 3)); // Duration for splash screen
     Navigator.of(context).pushNamed(
-      RouteList.dashboardScreen,
+      RouteList.loginPage,
     );
   }
 

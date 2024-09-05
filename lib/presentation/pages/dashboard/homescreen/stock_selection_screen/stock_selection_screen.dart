@@ -51,7 +51,17 @@ class StockSelectionScreen extends StatelessWidget {
         ),
         bottomNavigationBar: Container(
           color: AppColors.gradientOne,
-          child: BlocBuilder<StockSelectionBloc, StockSelectionState>(
+          child: BlocConsumer<StockSelectionBloc, StockSelectionState>(
+            listener: (context,state){
+              if(state is LeaderClickedState){
+                leaderIndex = state.leaderIndex;
+              }
+              if(state is CoLeaderClickedState){
+                coLeaderIndex = state.coLeaderIndex;
+              }if(state is ViceLeaderClickedState){
+                viceLeaderIndex = state.viceLeaderIndex;
+              }
+            },
               bloc: stockSelectionBloc,
               builder: (context, state) {
                 if (state is StockSelectionLoadedState) {
@@ -67,7 +77,7 @@ class StockSelectionScreen extends StatelessWidget {
                             showSnackBar(
                                 context: context,
                                 message: "Please select 11 stocks");
-                          } else if (leaderIndex == null) {
+                          }/* else if (leaderIndex == null) {
                             showSnackBar(
                                 context: context,
                                 message: "Please select leader stock");
@@ -79,7 +89,7 @@ class StockSelectionScreen extends StatelessWidget {
                             showSnackBar(
                                 context: context,
                                 message: "Please select Co leader stock");
-                          } else {
+                          } */else {
                             Navigator.pushNamed(
                                 context, RouteList.battleGroundScreen);
                           }
