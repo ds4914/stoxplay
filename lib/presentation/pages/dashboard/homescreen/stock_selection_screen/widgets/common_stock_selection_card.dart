@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stoxplay/presentation/pages/dashboard/homescreen/stock_selection_screen/blocs/update_index/update_index_bloc.dart';
 import 'package:stoxplay/shared/widgets/common_icon_for_position.dart';
 
 import '../../../../../../shared/shared.dart';
 import '../../../../../../shared/widgets/common_icon.dart';
-import '../blocs/stock_selection_bloc.dart';
+import '../blocs/stock_bloc/stock_selection_bloc.dart';
 
 class CommonStockSelectionCard extends StatelessWidget {
   final int index;
@@ -15,29 +16,19 @@ class CommonStockSelectionCard extends StatelessWidget {
   final void Function()? onTap;
   final void Function()? onDownButtonTap;
   final void Function()? onMoreTap;
-  final void Function()? onLClick;
-  final void Function()? onVLClick;
-  final void Function()? onCLClick;
   final List<int>? upSelectedStock;
   final List<int>? downSelectedStock;
   final List<bool>? moreButtonClicked;
-  final StockSelectionBloc leaderBloc;
-  final StockSelectionBloc coLeaderBloc;
-  final StockSelectionBloc viceLeaderBloc;
+  final UpdateIndexBloc updateIndexBloc;
 
   CommonStockSelectionCard({
     super.key,
     required this.index,
-    required this.leaderBloc,
-    required this.coLeaderBloc,
-    required this.viceLeaderBloc,
+    required this.updateIndexBloc,
     required this.data,
-    required this.onLClick,
     required this.leaderIndex,
     required this.coLeaderIndex,
     required this.viceLeaderIndex,
-    required this.onVLClick,
-    required this.onCLClick,
     required this.onUpButtonTap,
     required this.onMoreTap,
     required this.onTap,
@@ -78,9 +69,7 @@ class CommonStockSelectionCard extends StatelessWidget {
                         data['stocks'][index]['image'],
                         height: 50.h,
                         width: 50.w,
-                      ).paddingSymmetric(
-                          horizontal: 5.w, vertical: 5.h)
-                          .paddingSymmetric(horizontal: 10.w),
+                      ).paddingSymmetric(horizontal: 5.w, vertical: 5.h).paddingSymmetric(horizontal: 10.w),
                       Row(
                         children: [
                           TextView(
@@ -105,44 +94,33 @@ class CommonStockSelectionCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                leaderBloc.add(OnLeaderClickedEvent(
+                                updateIndexBloc.add(UpdateIndexClickedEvent(
                                     leaderIndex: leaderIndex,
                                     index: index,
+                                    updateLeader: true,
                                     coLeaderIndex: coLeaderIndex,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<StockSelectionBloc,
-                                  StockSelectionState>(
-                                bloc: leaderBloc,
+                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                                bloc: updateIndexBloc,
                                 builder: (context, state) {
-                                  if (state is LeaderClickedState) {
+                                  if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.leaderIndex}');
                                     leaderIndex = state.leaderIndex;
                                     return Container(
                                         height: 30.h,
                                         width: 30.w,
                                         decoration: BoxDecoration(
-                                            color: state.leaderIndex == index
-                                                ? AppColors.gradientOne
-                                                : AppColors.white,
+                                            color: state.leaderIndex == index ? AppColors.gradientOne : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: AppColors.blue,
-                                                  spreadRadius: 1.0,
-                                                  blurRadius: 1.0)
-                                            ],
-                                            border: Border.all(
-                                                color: AppColors.blue)),
+                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                            border: Border.all(color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "L",
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor:
-                                                state.leaderIndex == index
-                                                    ? AppColors.white
-                                                    : AppColors.color666666,
+                                            fontColor: state.leaderIndex == index ? AppColors.white : AppColors.color666666,
                                           ),
                                         ));
                                   }
@@ -152,14 +130,8 @@ class CommonStockSelectionCard extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.blue,
-                                                spreadRadius: 1.0,
-                                                blurRadius: 1.0)
-                                          ],
-                                          border: Border.all(
-                                              color: AppColors.blue)),
+                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                          border: Border.all(color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "L",
@@ -176,45 +148,33 @@ class CommonStockSelectionCard extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                viceLeaderBloc.add(OnViceLeaderClickedEvent(
+                                updateIndexBloc.add(UpdateIndexClickedEvent(
                                     leaderIndex: leaderIndex,
                                     index: index,
+                                    updateViceLeader: true,
                                     coLeaderIndex: coLeaderIndex,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<StockSelectionBloc,
-                                  StockSelectionState>(
-                                bloc: viceLeaderBloc,
+                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                                bloc: updateIndexBloc,
                                 builder: (context, state) {
-                                  if (state is ViceLeaderClickedState) {
+                                  if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.viceLeaderIndex}');
                                     viceLeaderIndex = state.viceLeaderIndex;
                                     return Container(
                                         height: 30.h,
                                         width: 30.w,
                                         decoration: BoxDecoration(
-                                            color:
-                                                state.viceLeaderIndex == index
-                                                    ? AppColors.gradientOne
-                                                    : AppColors.white,
+                                            color: state.viceLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: AppColors.blue,
-                                                  spreadRadius: 1.0,
-                                                  blurRadius: 1.0)
-                                            ],
-                                            border: Border.all(
-                                                color: AppColors.blue)),
+                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                            border: Border.all(color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "VL",
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor:
-                                                state.viceLeaderIndex == index
-                                                    ? AppColors.white
-                                                    : AppColors.color666666,
+                                            fontColor: state.viceLeaderIndex == index ? AppColors.white : AppColors.color666666,
                                           ),
                                         ));
                                   }
@@ -224,14 +184,8 @@ class CommonStockSelectionCard extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.blue,
-                                                spreadRadius: 1.0,
-                                                blurRadius: 1.0)
-                                          ],
-                                          border: Border.all(
-                                              color: AppColors.blue)),
+                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                          border: Border.all(color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "VL",
@@ -248,44 +202,33 @@ class CommonStockSelectionCard extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                coLeaderBloc.add(OnCoLeaderClickedEvent(
+                                updateIndexBloc.add(UpdateIndexClickedEvent(
                                     leaderIndex: leaderIndex,
                                     index: index,
                                     coLeaderIndex: coLeaderIndex,
+                                    updateCoLeader: true,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<StockSelectionBloc,
-                                  StockSelectionState>(
-                                bloc: coLeaderBloc,
+                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                                bloc: updateIndexBloc,
                                 builder: (context, state) {
-                                  if (state is CoLeaderClickedState) {
+                                  if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.coLeaderIndex}');
                                     coLeaderIndex = state.coLeaderIndex;
                                     return Container(
                                         height: 30.h,
                                         width: 30.w,
                                         decoration: BoxDecoration(
-                                            color: state.coLeaderIndex == index
-                                                ? AppColors.gradientOne
-                                                : AppColors.white,
+                                            color: state.coLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: AppColors.blue,
-                                                  spreadRadius: 1.0,
-                                                  blurRadius: 1.0)
-                                            ],
-                                            border: Border.all(
-                                                color: AppColors.blue)),
+                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                            border: Border.all(color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "CL",
                                             fontSize: 15.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor:
-                                                state.coLeaderIndex == index
-                                                    ? AppColors.white
-                                                    : AppColors.color666666,
+                                            fontColor: state.coLeaderIndex == index ? AppColors.white : AppColors.color666666,
                                           ),
                                         ));
                                   }
@@ -295,14 +238,8 @@ class CommonStockSelectionCard extends StatelessWidget {
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [
-                                            BoxShadow(
-                                                color: AppColors.blue,
-                                                spreadRadius: 1.0,
-                                                blurRadius: 1.0)
-                                          ],
-                                          border: Border.all(
-                                              color: AppColors.blue)),
+                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
+                                          border: Border.all(color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "CL",
@@ -358,15 +295,8 @@ class CommonStockSelectionCard extends StatelessWidget {
               constraints: BoxConstraints(minWidth: 50.w, maxWidth: 120.w),
               decoration: BoxDecoration(
                   color: AppColors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: AppColors.lightRed,
-                        blurRadius: 1.0,
-                        spreadRadius: 1.0)
-                  ],
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10.r),
-                      bottomRight: Radius.circular(10.r))),
+                  boxShadow: [BoxShadow(color: AppColors.lightRed, blurRadius: 1.0, spreadRadius: 1.0)],
+                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r), bottomRight: Radius.circular(10.r))),
               child: TextView(
                 text: data['stocks'][index]['stockName'],
                 fontColor: AppColors.black,
