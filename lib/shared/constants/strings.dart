@@ -1,4 +1,4 @@
-class Strings{
+class Strings {
   Strings._();
   static const String stoxplay = "Stoxplay";
   static const String login = "Log In";
@@ -41,4 +41,18 @@ class Strings{
   static const String sectorsPlay = "Sector's Play";
   static const String indianStockMarketChampionship = "Indian Stock Market Championship";
   static const String selectStocks = "Select Stocks";
+  static const String userProfile = "User Profile";
+  static const String timeLeft = "Time Left";
+  static const String next = "Next";
+  static const String pleaseSelect11Stocks = "Please select 11 stocks";
+  static const String pleaseSelectLeaderStock = "Please select leader stock";
+  static const String pleaseSelectViceLeaderStock = "Please select vice leader stock";
+  static const String pleaseSelectCoLeaderStock = "Please select Co leader stock";
+  static const String youHaveSelected11StockPleaseClickNext = "You have selected 11 stocks, please click next!";
+  static const String firstSelectTheStock = "First select the stock";
+  static const String pick11StocksFrom22 = "Pick 11 stocks from 22";
+  static const String points = "Points - 290.0";
+  static const String rank = "Rank - 01";
+  static const String bhavesh = "Bhavesh.Stoxplay";
+  static const String tenX = "10x";
 }
