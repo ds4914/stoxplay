@@ -1,314 +1,506 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stoxplay/presentation/pages/dashboard/homescreen/stock_selection_screen/blocs/update_index/update_index_bloc.dart';
-import 'package:stoxplay/shared/widgets/common_icon_for_position.dart';
-
-import '../../../../../../shared/shared.dart';
-import '../../../../../../shared/widgets/common_icon.dart';
-import '../blocs/stock_bloc/stock_selection_bloc.dart';
-
-class CommonStockSelectionCard extends StatelessWidget {
-  final int index;
-  final Map<String, dynamic> data;
-  int? leaderIndex;
-  int? coLeaderIndex;
-  int? viceLeaderIndex;
-  final void Function()? onUpButtonTap;
-  final void Function()? onTap;
-  final void Function()? onDownButtonTap;
-  final void Function()? onMoreTap;
-  final List<int>? upSelectedStock;
-  final List<int>? downSelectedStock;
-  final List<bool>? moreButtonClicked;
-  final UpdateIndexBloc updateIndexBloc;
-
-  CommonStockSelectionCard({
-    super.key,
-    required this.index,
-    required this.updateIndexBloc,
-    required this.data,
-    required this.leaderIndex,
-    required this.coLeaderIndex,
-    required this.viceLeaderIndex,
-    required this.onUpButtonTap,
-    required this.onMoreTap,
-    required this.onTap,
-    required this.onDownButtonTap,
-    this.upSelectedStock,
-    this.downSelectedStock,
-    this.moreButtonClicked,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        children: [
-          Card(
-            elevation: 3.0,
-            child: Container(
-              decoration: BoxDecoration(
-                  color: upSelectedStock!.contains(index)
-                      ? AppColors.lightGreen
-                      : downSelectedStock!.contains(index)
-                          ? AppColors.lightRed
-                          : AppColors.white,
-                  borderRadius: BorderRadius.circular(10.r),
-                  border: Border.all(
-                      color: upSelectedStock!.contains(index)
-                          ? AppColors.colorOnline
-                          : downSelectedStock!.contains(index)
-                              ? AppColors.red
-                              : AppColors.color999999)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        data['stocks'][index]['image'],
-                        height: 50.h,
-                        width: 50.w,
-                      ).paddingSymmetric(horizontal: 5.w, vertical: 5.h).paddingSymmetric(horizontal: 10.w),
-                      Row(
-                        children: [
-                          TextView(
-                            text: "₹${data['stocks'][index]['stockPrice']}",
-                            fontSize: 14.sp,
-                            fontColor: AppColors.black,
-                          ),
-                          SizedBox(
-                            width: 5.w,
-                          ),
-                          TextView(
-                            text: "[${data['stocks'][index]['percentage']}]",
-                            fontSize: 12.sp,
-                            fontColor: AppColors.black,
-                          ),
-                        ],
-                      ).paddingTop(30.h),
-                    ],
-                  ),
-                  moreButtonClicked![index]
-                      ? Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                updateIndexBloc.add(UpdateIndexClickedEvent(
-                                    leaderIndex: leaderIndex,
-                                    index: index,
-                                    updateLeader: true,
-                                    coLeaderIndex: coLeaderIndex,
-                                    viceLeaderIndex: viceLeaderIndex));
-                              },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
-                                bloc: updateIndexBloc,
-                                builder: (context, state) {
-                                  if (state is UpdateIndexLoadedState) {
-                                    print('object==>${state.leaderIndex}');
-                                    leaderIndex = state.leaderIndex;
-                                    return Container(
-                                        height: 30.h,
-                                        width: 30.w,
-                                        decoration: BoxDecoration(
-                                            color: state.leaderIndex == index ? AppColors.gradientOne : AppColors.white,
-                                            shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
-                                        child: Center(
-                                          child: TextView(
-                                            text: "L",
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            fontColor: state.leaderIndex == index ? AppColors.white : AppColors.color666666,
-                                          ),
-                                        ));
-                                  }
-                                  return Container(
-                                      height: 30.h,
-                                      width: 30.w,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
-                                      child: Center(
-                                        child: TextView(
-                                          text: "L",
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                          fontColor: AppColors.color666666,
-                                        ),
-                                      ));
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                updateIndexBloc.add(UpdateIndexClickedEvent(
-                                    leaderIndex: leaderIndex,
-                                    index: index,
-                                    updateViceLeader: true,
-                                    coLeaderIndex: coLeaderIndex,
-                                    viceLeaderIndex: viceLeaderIndex));
-                              },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
-                                bloc: updateIndexBloc,
-                                builder: (context, state) {
-                                  if (state is UpdateIndexLoadedState) {
-                                    print('object==>${state.viceLeaderIndex}');
-                                    viceLeaderIndex = state.viceLeaderIndex;
-                                    return Container(
-                                        height: 30.h,
-                                        width: 30.w,
-                                        decoration: BoxDecoration(
-                                            color: state.viceLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
-                                            shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
-                                        child: Center(
-                                          child: TextView(
-                                            text: "VL",
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            fontColor: state.viceLeaderIndex == index ? AppColors.white : AppColors.color666666,
-                                          ),
-                                        ));
-                                  }
-                                  return Container(
-                                      height: 30.h,
-                                      width: 30.w,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
-                                      child: Center(
-                                        child: TextView(
-                                          text: "VL",
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                          fontColor: AppColors.color666666,
-                                        ),
-                                      ));
-                                },
-                              ),
-                            ).paddingSymmetric(horizontal: 2.w),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                updateIndexBloc.add(UpdateIndexClickedEvent(
-                                    leaderIndex: leaderIndex,
-                                    index: index,
-                                    coLeaderIndex: coLeaderIndex,
-                                    updateCoLeader: true,
-                                    viceLeaderIndex: viceLeaderIndex));
-                              },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
-                                bloc: updateIndexBloc,
-                                builder: (context, state) {
-                                  if (state is UpdateIndexLoadedState) {
-                                    print('object==>${state.coLeaderIndex}');
-                                    coLeaderIndex = state.coLeaderIndex;
-                                    return Container(
-                                        height: 30.h,
-                                        width: 30.w,
-                                        decoration: BoxDecoration(
-                                            color: state.coLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
-                                            shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
-                                        child: Center(
-                                          child: TextView(
-                                            text: "CL",
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.bold,
-                                            fontColor: state.coLeaderIndex == index ? AppColors.white : AppColors.color666666,
-                                          ),
-                                        ));
-                                  }
-                                  return Container(
-                                      height: 30.h,
-                                      width: 30.w,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.white,
-                                          shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
-                                      child: Center(
-                                        child: TextView(
-                                          text: "CL",
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold,
-                                          fontColor: AppColors.color666666,
-                                        ),
-                                      ));
-                                },
-                              ),
-                            )
-                          ],
-                        ).paddingSymmetric(horizontal: 5.w, vertical: 5.w)
-                      : Row(
-                          children: [
-                            GestureDetector(
-                              onTap: onUpButtonTap,
-                              child: Icon(
-                                Icons.arrow_circle_up_outlined,
-                                color: AppColors.priceButtonColor,
-                                size: 35.sp,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            GestureDetector(
-                                onTap: onMoreTap,
-                                child: CommonIcon(
-                                  icon: Icons.more_horiz,
-                                )),
-                            SizedBox(
-                              width: 2.w,
-                            ),
-                            GestureDetector(
-                              onTap: onDownButtonTap,
-                              child: Icon(
-                                Icons.arrow_circle_down,
-                                color: AppColors.downButtonColor,
-                                size: 35.sp,
-                              ),
-                            ),
-                          ],
-                        )
-                ],
-              ),
-            ).paddingSymmetric(horizontal: 5.w, vertical: 5.w),
-          ),
-          Positioned(
-            left: 90.w,
-            top: 3.h,
-            child: Container(
-              constraints: BoxConstraints(minWidth: 50.w, maxWidth: 120.w),
-              decoration: BoxDecoration(
-                  color: AppColors.white,
-                  boxShadow: [BoxShadow(color: AppColors.lightRed, blurRadius: 1.0, spreadRadius: 1.0)],
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r), bottomRight: Radius.circular(10.r))),
-              child: TextView(
-                text: data['stocks'][index]['stockName'],
-                fontColor: AppColors.black,
-                fontWeight: FontWeight.w600,
-                overflow: TextOverflow.ellipsis,
-                fontSize: 15.sp,
-                textAlign: TextAlign.center,
-              ).paddingSymmetric(vertical: 10.h, horizontal: 10.w),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+class StaticData {
+  StaticData._();
+  static List<Map<String, dynamic>> data = [
+    {
+      "title": "Bank Wars",
+      "price": "10,50,000/-",
+      "timeLeft": "(09:10:59)",
+      "image": "assets/images/bank_wars.png",
+      "contestPriceList": [
+        {"contestPrice": 50, "spots": '30k', "prizePool": "10,50,000"},
+        {"contestPrice": 70, "spots": '20k', "prizePool": "9,80,000"},
+        {"contestPrice": 100, "spots": '10k', "prizePool": "7,00,000"}
+      ],
+      "stocks": [
+        {
+          "stockName": "HDFC Bank Ltd.",
+          "id": 1,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/hdfc_bank.png"
+        },
+        {
+          "stockName": "ICICI Bank Ltd.",
+          "id": 2,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/icici_bank.png"
+        },
+        {
+          "stockName": "SBI.",
+          "id": 3,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/sbi_bank.png"
+        },
+        {
+          "stockName": "Kotak Mahindra Bank Ltd.",
+          "id": 4,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/kotak_bank.png"
+        },
+        {
+          "stockName": "Axis Bank",
+          "id": 5,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/axis_bank.png"
+        },
+        {
+          "stockName": "Bank Of Baroda",
+          "id": 6,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_baroda.png"
+        },
+        {
+          "stockName": "PNB Bank Ltd.",
+          "id": 7,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/pnb_bank.png"
+        },
+        {
+          "stockName": "IDBI Bank Ltd.",
+          "id": 8,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idbi_bank.png"
+        },
+        {
+          "stockName": "Canara Bank",
+          "id": 9,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/canara_bank.png"
+        },
+        {
+          "stockName": "IDFC Bank",
+          "id": 10,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idfc_bank.png"
+        },
+        {
+          "stockName": "Indusind Bank Ltd.",
+          "id": 11,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indusind_bank.png"
+        },
+        {
+          "stockName": "Union Bank Ltd.",
+          "id": 12,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/union_bank.png"
+        },
+        {
+          "stockName": "Indian bank",
+          "id": 13,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indian_bank.png"
+        },
+        {
+          "stockName": "Central Bank Ltd.",
+          "id": 14,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/central_bank.png"
+        },
+        {
+          "stockName": "Bank of India",
+          "id": 15,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/boi_bank.png"
+        },
+        {
+          "stockName": "Karnataka Bank",
+          "id": 16,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/karnataka_bank.png"
+        },
+        {
+          "stockName": "Federal Bank",
+          "id": 17,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/federal_bank.png"
+        },
+        {
+          "stockName": "AU small finance bank",
+          "id": 18,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/au_small_fin_bank.png"
+        },
+        {
+          "stockName": "Bank of Maharashtra",
+          "id": 19,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_maharashtra.png"
+        },
+        {
+          "stockName": "Bandhan Bank",
+          "id": 20,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bandhan_bank.png"
+        },
+        {
+          "stockName": "RBL Bank",
+          "id": 21,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/rbl_bank.png"
+        },
+        {
+          "stockName": "Yes Bank",
+          "id": 22,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/yes_bank.png"
+        },
+      ]
+    },
+    {
+      "title": "Battle of Energy",
+      "price": "10,50,000/-",
+      "timeLeft": "(09:10:59)",
+      "image": "assets/images/battle_of_energy.png",
+      "contestPriceList": [
+        {"contestPrice": 50, "spots": '30k', "prizePool": "10,50,000"},
+        {"contestPrice": 70, "spots": '20k', "prizePool": "9,80,000"},
+        {"contestPrice": 100, "spots": '10k', "prizePool": "7,00,000"}
+      ],
+      "stocks": [
+        {
+          "stockName": "HDFC Bank Ltd.",
+          "id": 1,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/hdfc_bank.png"
+        },
+        {
+          "stockName": "ICICI Bank Ltd.",
+          "id": 2,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/icici_bank.png"
+        },
+        {
+          "stockName": "SBI.",
+          "id": 3,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/sbi_bank.png"
+        },
+        {
+          "stockName": "Kotak Mahindra Bank Ltd.",
+          "id": 4,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/kotak_bank.png"
+        },
+        {
+          "stockName": "Axis Bank",
+          "id": 5,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/axis_bank.png"
+        },
+        {
+          "stockName": "Bank Of Baroda",
+          "id": 6,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_baroda.png"
+        },
+        {
+          "stockName": "PNB Bank Ltd.",
+          "id": 7,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/pnb_bank.png"
+        },
+        {
+          "stockName": "IDBI Bank Ltd.",
+          "id": 8,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idbi_bank.png"
+        },
+        {
+          "stockName": "Canara Bank",
+          "id": 9,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/canara_bank.png"
+        },
+        {
+          "stockName": "IDFC Bank",
+          "id": 10,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idfc_bank.png"
+        },
+        {
+          "stockName": "Indusind Bank Ltd.",
+          "id": 11,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indusind_bank.png"
+        },
+        {
+          "stockName": "Union Bank Ltd.",
+          "id": 12,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/union_bank.png"
+        },
+        {
+          "stockName": "Indian bank",
+          "id": 13,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indian_bank.png"
+        },
+        {
+          "stockName": "Central Bank Ltd.",
+          "id": 14,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/central_bank.png"
+        },
+        {
+          "stockName": "Bank of India",
+          "id": 15,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/boi_bank.png"
+        },
+        {
+          "stockName": "Karnataka Bank",
+          "id": 16,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/karnataka_bank.png"
+        },
+        {
+          "stockName": "Federal Bank",
+          "id": 17,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/federal_bank.png"
+        },
+        {
+          "stockName": "AU small finance bank",
+          "id": 18,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/au_small_fin_bank.png"
+        },
+        {
+          "stockName": "Bank of Maharashtra",
+          "id": 19,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_maharashtra.png"
+        },
+        {
+          "stockName": "Bandhan Bank",
+          "id": 20,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bandhan_bank.png"
+        },
+        {
+          "stockName": "RBL Bank",
+          "id": 21,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/rbl_bank.png"
+        },
+        {
+          "stockName": "Yes Bank",
+          "id": 22,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/yes_bank.png"
+        },
+      ]
+    },
+    {
+      "title": "Tech Clash",
+      "price": "10,50,000/-",
+      "timeLeft": "(09:10:59)",
+      "image": "assets/images/tech_clash.png",
+      "contestPriceList": [
+        {"contestPrice": 50, "spots": '30k', "prizePool": "10,50,000"},
+        {"contestPrice": 70, "spots": '20k', "prizePool": "9,80,000"},
+        {"contestPrice": 100, "spots": '10k', "prizePool": "7,00,000"}
+      ],
+      "stocks": [
+        {
+          "stockName": "HDFC Bank Ltd.",
+          "id": 1,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/hdfc_bank.png"
+        },
+        {
+          "stockName": "ICICI Bank Ltd.",
+          "id": 2,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/icici_bank.png"
+        },
+        {
+          "stockName": "SBI.",
+          "id": 3,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/sbi_bank.png"
+        },
+        {
+          "stockName": "Kotak Mahindra Bank Ltd.",
+          "id": 4,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/kotak_bank.png"
+        },
+        {
+          "stockName": "Axis Bank",
+          "id": 5,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/axis_bank.png"
+        },
+        {
+          "stockName": "Bank Of Baroda",
+          "id": 6,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_baroda.png"
+        },
+        {
+          "stockName": "PNB Bank Ltd.",
+          "id": 7,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/pnb_bank.png"
+        },
+        {
+          "stockName": "IDBI Bank Ltd.",
+          "id": 8,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idbi_bank.png"
+        },
+        {
+          "stockName": "Canara Bank",
+          "id": 9,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/canara_bank.png"
+        },
+        {
+          "stockName": "IDFC Bank",
+          "id": 10,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/idfc_bank.png"
+        },
+        {
+          "stockName": "Indusind Bank Ltd.",
+          "id": 11,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indusind_bank.png"
+        },
+        {
+          "stockName": "Union Bank Ltd.",
+          "id": 12,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/union_bank.png"
+        },
+        {
+          "stockName": "Indian bank",
+          "id": 13,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/indian_bank.png"
+        },
+        {
+          "stockName": "Central Bank Ltd.",
+          "id": 14,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/central_bank.png"
+        },
+        {
+          "stockName": "Bank of India",
+          "id": 15,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/boi_bank.png"
+        },
+        {
+          "stockName": "Karnataka Bank",
+          "id": 16,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/karnataka_bank.png"
+        },
+        {
+          "stockName": "Federal Bank",
+          "id": 17,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/federal_bank.png"
+        },
+        {
+          "stockName": "AU small finance bank",
+          "id": 18,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/au_small_fin_bank.png"
+        },
+        {
+          "stockName": "Bank of Maharashtra",
+          "id": 19,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bank_of_maharashtra.png"
+        },
+        {
+          "stockName": "Bandhan Bank",
+          "id": 20,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/bandhan_bank.png"
+        },
+        {
+          "stockName": "RBL Bank",
+          "id": 21,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/rbl_bank.png"
+        },
+        {
+          "stockName": "Yes Bank",
+          "id": 22,
+          "stockPrice": "1,629.40",
+          "percentage": "-1.05%",
+          "image": "assets/images/bank_wars/yes_bank.png"
+        },
+      ]
+    },
+  ];
 }
