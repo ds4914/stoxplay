@@ -16,7 +16,7 @@ class Strings {
   static const String mobileNumber = "Mobile number";
   static const String rememberMe = "Remember me";
   static const String code = "Code";
-  static const String resendIn = "resend in ";
+  static const String resendIn = "Resend in ";
   static const String forgotPassword = "Forgot Password";
   static const String pleaseSignInToExistingAccount = "Please sign in to existing account";
   static const String weWillSendYouOTP = "We will send you One Time Password(OTP)";
@@ -55,4 +55,5 @@ class Strings {
   static const String rank = "Rank - 01";
   static const String bhavesh = "Bhavesh.Stoxplay";
   static const String tenX = "10x";
+  static const String join = "Join";
 }

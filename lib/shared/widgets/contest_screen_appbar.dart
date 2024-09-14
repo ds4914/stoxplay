@@ -8,11 +8,11 @@ class ContestScreenAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.colorPrimaryYellow,
-        gradient: LinearGradient(colors: [
-          AppColors.gradientTwo,
-          AppColors.gradientOne,
-        ]),
+        color: AppColors.gradientOne,
+        // gradient: LinearGradient(colors: [
+        //   AppColors.gradientTwo,
+        //   AppColors.gradientOne,
+        // ]),
         border: Border.all(color: AppColors.color666666),
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(30.r),

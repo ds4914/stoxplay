@@ -1,52 +1,51 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:stoxplay/shared/widgets/dashboard_background.dart';
 import 'package:stoxplay/shared/widgets/home_screen_appbar.dart';
-
 import '../../../../shared/shared.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  TabController? tabController;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: DefaultTabController(
         length: 2,
-        child: Scaffold(
-          backgroundColor: AppColors.gradientOne,
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(80.h),
-              child: HomeScreenAppbar()),
-          body: Column(
-            children: [
-              CarouselSlider(
-                  items: [
-                    Image.asset('assets/images/caraousel_item1.jfif'),
-                    Image.asset('assets/images/caraousel_item2.jfif'),
-                  ],
-                  options: CarouselOptions(
-                    height: 100.h,
-                    autoPlay: true,
-                    pageSnapping: true,
-                  )),
-              SizedBox(
-                height: 20.h,
-              ),
-              tabBar(),
-              Expanded(
-                child: TabBarView(children: [
-                  playView(),
-                  Column(
-                    children: [
-                      TextView(text: Strings.learn),
+        child: Builder(builder: (context) {
+          return Scaffold(
+            backgroundColor: AppColors.gradientOne,
+            appBar: PreferredSize(
+                preferredSize: Size.fromHeight(80.h),
+                child: HomeScreenAppbar()),
+            body: Column(
+              children: [
+                CarouselSlider(
+                    items: [
+                      Image.asset('assets/images/caraousel_item1.jfif'),
+                      Image.asset('assets/images/caraousel_item2.jfif'),
                     ],
-                  )
-                ]),
-              )
-            ],
-          ),
-        ),
+                    options: CarouselOptions(
+                      height: 100.h,
+                      autoPlay: true,
+                      pageSnapping: true,
+                    )),
+                SizedBox(
+                  height: 20.h,
+                ),
+                tabBar(),
+                Expanded(
+                  child: TabBarView(children: [
+                    playView(),
+                    Column(
+                      children: [
+                        TextView(text: Strings.learn),
+                      ],
+                    )
+                  ]),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
@@ -60,7 +59,7 @@ class HomeScreen extends StatelessWidget {
         Stack(
           children: [
             Divider(
-              color: AppColors.white,
+              color: AppColors.color999999,
             ).paddingTop(5.h),
             Align(
                 alignment: Alignment.center,
@@ -87,11 +86,7 @@ class HomeScreen extends StatelessWidget {
                 return Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        stops: [-0.5, 1.2],
-                        colors: [AppColors.gradientOne, AppColors.gradientTwo]),
+                    color: AppColors.gradientOne,
                     border: Border.all(color: AppColors.lightGrey),
                     borderRadius: BorderRadius.circular(15.r),
                   ),
@@ -106,70 +101,66 @@ class HomeScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                    height: 40.h,
-                                    width: 40.w,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(10.r)),
-                                    child: Image.asset(
-                                      StaticData.data[index]['image'],
-                                    ).paddingSymmetric(horizontal: 5.w)),
-                                TextView(
-                                        fontSize: 12.sp,
-                                        fontColor: AppColors.grey,
-                                        text: StaticData.data[index]['title']
-                                            .toString())
-                                    .paddingTop(5.h),
-                              ],
-                            ),
-                          ),
                           Row(
                             children: [
-                              Column(
-                                children: [
-                                  TextView(
-                                    fontColor: AppColors.grey,
-                                    text: "Time Left",
-                                    fontSize: 12.sp,
-                                  ),
-                                  TextView(
-                                    fontColor: AppColors.grey,
-                                    text: StaticData.data[index]['timeLeft'],
-                                    fontSize: 12.sp,
-                                  )
-                                ],
+                              Image.asset(
+                                StaticData.data[index]['image'],
+                                height: 50.h,
+                                width: 50.w,
                               ),
                               SizedBox(
-                                width: 20.w,
+                                width: 10.w,
                               ),
-                              CommonButton(
-                                  height: 20.h,
-                                  width: 100.w,
-                                  borderRadius: 5.r,
-                                  title: Strings.play,
-                                  onTap: () {
-                                    Navigator.pushNamed(
-                                        context, RouteList.contestScreen,
-                                        arguments: StaticData.data[index]);
-                                  }),
+                              TextView(
+                                  fontSize: 15.sp,
+                                  fontColor: AppColors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  text: StaticData.data[index]['title']
+                                      .toString()),
                             ],
-                          )
+                          ),
+                          CommonButton(
+                              height: 25.h,
+                              width: 70.w,
+                              borderRadius: 5.r,
+                              title: Strings.join,
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteList.contestScreen,
+                                    arguments: StaticData.data[index]);
+                              }),
                         ],
                       ),
                       Divider(
                         color: AppColors.lightGrey,
                       ),
-                      TextView(
-                        text: "Max ${StaticData.data[index]['price']} Win",
-                        fontColor: AppColors.grey,
-                        fontSize: 12.sp,
-                      ).paddingBottom(10.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextView(
+                            text: "Max ${StaticData.data[index]['price']} Win",
+                            fontColor: AppColors.grey,
+                            fontSize: 10.sp,
+                          ),
+                          Row(
+                            children: [
+                              TextView(
+                                fontColor: AppColors.grey,
+                                text: Strings.timeLeft,
+                                fontSize: 10.sp,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              TextView(
+                                fontColor: AppColors.grey,
+                                text: StaticData.data[index]['timeLeft'],
+                                fontSize: 10.sp,
+                              ),
+                            ],
+                          )
+                        ],
+                      ).paddingBottom(5.h),
                     ],
                   ).paddingSymmetric(horizontal: 14.w),
                 );
@@ -182,26 +173,34 @@ class HomeScreen extends StatelessWidget {
   Widget tabBar() {
     return TabBar(
         dividerColor: Colors.transparent,
-        indicator: BoxDecoration(
-            color: AppColors.gradientOne,
-            shape: BoxShape.rectangle,
-            boxShadow: [BoxShadow(color: AppColors.lightGrey, blurRadius: 5.0)],
-            border: Border.all(color: AppColors.lightGrey, width: 2.0),
-            borderRadius: BorderRadius.circular(20.r)),
+        indicator: BoxDecoration(borderRadius: BorderRadius.circular(15.r),boxShadow: [
+          BoxShadow(color: AppColors.gradientTwo, blurRadius: 1.0, spreadRadius: 1.0)
+        ],),
         tabs: [
-          TextView(
-            text: Strings.play,
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ).paddingSymmetric(horizontal: 50.w, vertical: 10.h),
-          TextView(
-            text: Strings.learn,
-            fontWeight: FontWeight.bold,
-            fontSize: 18.sp,
-          ).paddingSymmetric(
-            horizontal: 50.w,
-            vertical: 10.h,
-          )
+          Container(
+            decoration: BoxDecoration(
+                color: AppColors.gradientOne,
+                shape: BoxShape.rectangle,
+                border: Border.all(color: AppColors.lightGrey, width: 2.0),
+                borderRadius: BorderRadius.circular(15.r)),
+            child: TextView(
+              text: Strings.play,
+              fontWeight: FontWeight.bold,
+              fontSize: 18.sp,
+            ).paddingSymmetric(horizontal: 50.w, vertical: 10.h),
+          ),
+          Container(
+            decoration: BoxDecoration(
+                color: AppColors.gradientOne,
+                shape: BoxShape.rectangle,
+                border: Border.all(color: AppColors.lightGrey, width: 2.0),
+                borderRadius: BorderRadius.circular(15.r)),
+            child: TextView(
+              text: Strings.learn,
+              fontWeight: FontWeight.bold,
+              fontSize: 18.sp,
+            ).paddingSymmetric(horizontal: 50.w, vertical: 10.h),
+          ),
         ]);
   }
 }

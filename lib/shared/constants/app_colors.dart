@@ -7,6 +7,8 @@ class AppColors{
   static const Color gradientOne = Color(0xff141326);
   static const Color gradientTwo = Color(0xffFF52FF);
   static const Color gradientThree = Color(0xff3300D2);
+  static const Color color9929E = Color(0xff9929E);
+
   static const Color grey = Colors.white70;
   static const Color orange = Colors.orange;
   static const Color upButtonColor = Color(0xff38EE06);
@@ -173,4 +175,5 @@ class AppColors{
 
   static const Color colorB08D8D = Color(0xffb08d8d);
   static const Color color5CF3DA = Color(0xff5cf3da);
+  static const Color colorE46EFF = Color(0xffE46EFF);
 }

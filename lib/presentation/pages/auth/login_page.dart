@@ -1,4 +1,5 @@
 import 'package:stoxplay/shared/widgets/common_background.dart';
+import 'package:stoxplay/shared/widgets/termsAndConditionWidget.dart';
 import '../../../shared/shared.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,20 +26,20 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 100.h,
+                  height: 200.h,
                 ),
                 TextView(
                   text: Strings.login,
-                  fontSize: 24.sp,
+                  fontSize: 28.sp,
                   fontWeight: FontWeight.bold,
                 ),
                 TextView(
                   text: Strings.weWillSendYouOTP,
-                  fontSize: 13.sp,
+                  fontSize: 12.sp,
                   fontColor: AppColors.grey,
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 30.h,
                 ),
                 GradientContainer(
                   child: Column(
@@ -111,23 +112,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            Column(
-              children: [
-                TextView(
-                  fontSize: 10.sp,
-                  text: Strings.termsAndConditions,
-                  fontColor: AppColors.grey,textAlign: TextAlign.center,
-                ),
-                TextView(
-                  fontSize: 10.sp,
-                  text: Strings.sambhavatTechnologies,
-                  fontColor: AppColors.grey,
-                ),
-              ],
-            ).paddingSymmetric(horizontal: 50.w),
+            Termsandconditionwidget(),
           ],
         ).paddingSymmetric(horizontal: 20.w),
       ),
     );
   }
+
 }

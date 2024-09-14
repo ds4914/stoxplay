@@ -25,7 +25,7 @@ class ProfileScreen extends StatelessWidget {
                         width: 20.w,
                       ),
                       TextView(
-                        text: "User Profile",
+                        text: Strings.userProfile,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -43,6 +43,71 @@ class ProfileScreen extends StatelessWidget {
                   )
                 ],
               ).paddingSymmetric(horizontal: 20.w, vertical: 10.h)),
+          body: Column(
+            children: [
+              SizedBox(height: 20.h,),
+              Container(
+                height: 100.h,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.r),
+                    border: Border.all(color: AppColors.lightGrey)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextView(
+                          text: Strings.stoxplay,
+                          fontSize: 18.sp,
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        TextView(
+                          text: "+91 XXXXX XXXXX",
+                          fontColor: AppColors.grey,
+                          fontSize: 12.sp,
+                        ),
+                        TextView(
+                            text: "stoxplay@gmail.com",
+                            fontColor: AppColors.grey,
+                            fontSize: 12.sp),
+                      ],
+                    ),
+                    Stack(
+                      children: [
+                        Container(
+                            height: 60.h,
+                            width: 60.w,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: AppColors.white, width: 5.0),
+                                shape: BoxShape.circle),
+                            child: CircleAvatar(radius: 30.r,
+                                backgroundColor: AppColors.gradientOne,
+                                child:
+                                    Image.asset("assets/images/app_icon.png")
+                                        .paddingSymmetric(vertical: 10.h,horizontal: 10.w))),
+                        Positioned(
+                            bottom: 0.0,
+                            right: 0.0,
+                            child: CircleAvatar(
+                                radius: 10.r,
+                                backgroundColor: AppColors.gradientTwo,
+                                child: Icon(
+                                  Icons.qr_code_2,
+                                  size: 15.sp,
+                                )))
+                      ],
+                    )
+                  ],
+                ).paddingSymmetric(horizontal: 40.w),
+              )
+            ],
+          ).paddingSymmetric(horizontal: 20.w),
         ),
       ),
     );

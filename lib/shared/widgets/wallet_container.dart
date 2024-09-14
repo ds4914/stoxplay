@@ -11,12 +11,6 @@ class WalletContainer extends StatelessWidget {
             border: Border.all(
               color: AppColors.white,
             ),
-            boxShadow: [
-              BoxShadow(
-                  color: AppColors.white,
-                  blurRadius: 3.0,
-                  spreadRadius: 3.0)
-            ],
             borderRadius: BorderRadius.circular(15.r),
             color: AppColors.gradientOne),
         child: Row(

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:stoxplay/shared/widgets/termsAndConditionWidget.dart';
 
 import '../../../shared/shared.dart';
 import '../../../shared/widgets/common_background.dart';
@@ -53,7 +54,9 @@ class _OtpScreenState extends State<OtpScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(),
+            SizedBox(
+              height: 200.h,
+            ),
             Column(
               children: [
                 TextView(
@@ -72,7 +75,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   fontColor: AppColors.grey,
                 ),
                 SizedBox(
-                  height: 10.h,
+                  height: 30.h,
                 ),
                 GradientContainer(
                   child: Column(
@@ -89,7 +92,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               text:
                                   '${Strings.resendIn}${_start.toString()} sec'),
                         ],
-                      ).paddingRight(10.w),
+                      ),
                       OtpWidget(length: 4, onchange: (String ) {  },),
                       SizedBox(
                         height: 10.h,
@@ -105,23 +108,10 @@ class _OtpScreenState extends State<OtpScreen> {
                       )
                     ],
                   ),
-                ),
+                ).paddingSymmetric(horizontal: 20.w),
               ],
             ).paddingSymmetric(horizontal: 10.w),
-            Column(
-              children: [
-                TextView(
-                  fontSize: 10.sp,
-                  text: Strings.termsAndConditions,
-                  fontColor: AppColors.grey,
-                ).paddingSymmetric(horizontal: 30.w),
-                TextView(
-                  fontSize: 10.sp,
-                  text: Strings.sambhavatTechnologies,
-                  fontColor: AppColors.grey,
-                ),
-              ],
-            ),
+            Termsandconditionwidget()
           ],
         ),
       ),

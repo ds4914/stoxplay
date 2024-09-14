@@ -19,9 +19,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final List<Widget> screens = [
     HomeScreen(),
     MonitorScreen(),
-    WalletScreen(),
     LearnScreen(),
-    ProfileScreen()
+    WalletScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -37,59 +37,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
         index: selectedIndex,
         children: screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        enableFeedback: false,
-        elevation: 0.0,
-        currentIndex: selectedIndex,
-        onTap: _onItemTapped,
-        backgroundColor: AppColors.gradientOne,
-        items: [
-          BottomNavigationBarItem(
-              backgroundColor: AppColors.gradientOne,
-              icon: Icon(
-                Icons.home_outlined,
-                color: selectedIndex == 0
-                    ? AppColors.gradientTwo
-                    : AppColors.color666666,
-              ),
-              label: Strings.home),
-          BottomNavigationBarItem(
-              backgroundColor: AppColors.gradientOne,
-              icon: Icon(
-                Icons.monitor,
-                color: selectedIndex == 1
-                    ? AppColors.gradientTwo
-                    : AppColors.color666666,
-              ),
-              label: Strings.monitor),
-          BottomNavigationBarItem(
-              backgroundColor: AppColors.gradientOne,
-              icon: Icon(
-                Icons.account_balance_wallet_outlined,
-                color: selectedIndex == 2
-                    ? AppColors.gradientTwo
-                    : AppColors.color666666,
-              ),
-              label: Strings.wallet),
-          BottomNavigationBarItem(
-              backgroundColor: AppColors.gradientOne,
-              icon: Icon(
-                Icons.bar_chart,
-                color: selectedIndex == 3
-                    ? AppColors.gradientTwo
-                    : AppColors.color666666,
-              ),
-              label: Strings.learn),
-          BottomNavigationBarItem(
-              backgroundColor: AppColors.gradientOne,
-              icon: Icon(
-                Icons.person_2_outlined,
-                color: selectedIndex == 4
-                    ? AppColors.gradientTwo
-                    : AppColors.color666666,
-              ),
-              label: Strings.profile),
-        ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r))),
+        child: BottomNavigationBar(
+          enableFeedback: false,
+          elevation: 0.0,
+          currentIndex: selectedIndex,
+          onTap: _onItemTapped,
+          backgroundColor: AppColors.white,
+          items: [
+            BottomNavigationBarItem(
+                backgroundColor: AppColors.gradientOne,
+                icon: Icon(
+                  Icons.home_outlined,
+                  color: selectedIndex == 0
+                      ? AppColors.gradientTwo
+                      : AppColors.color666666,
+                ),
+                label: Strings.home),
+            BottomNavigationBarItem(
+                backgroundColor: AppColors.gradientOne,
+                icon: Icon(
+                  Icons.monitor,
+                  color: selectedIndex == 1
+                      ? AppColors.gradientTwo
+                      : AppColors.color666666,
+                ),
+                label: Strings.monitor),
+            BottomNavigationBarItem(
+                backgroundColor: AppColors.gradientOne,
+                icon: Icon(
+                  Icons.bar_chart,
+                  color: selectedIndex == 2
+                      ? AppColors.gradientTwo
+                      : AppColors.color666666,
+                ),
+                label: Strings.learn),
+            BottomNavigationBarItem(
+                backgroundColor: AppColors.gradientOne,
+                icon: Icon(
+                  Icons.account_balance_wallet_outlined,
+                  color: selectedIndex == 3
+                      ? AppColors.gradientTwo
+                      : AppColors.color666666,
+                ),
+                label: Strings.wallet),
+            BottomNavigationBarItem(
+                backgroundColor: AppColors.gradientOne,
+                icon: Icon(
+                  Icons.person_2_outlined,
+                  color: selectedIndex == 4
+                      ? AppColors.gradientTwo
+                      : AppColors.color666666,
+                ),
+                label: Strings.profile),
+          ],
+        ),
       ),
     );
   }

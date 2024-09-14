@@ -10,14 +10,9 @@ class StockSelectionScreen extends StatelessWidget {
   StockSelectionScreen({super.key});
 
   int? leaderIndex;
-
   int? viceLeaderIndex;
-
   int? coLeaderIndex;
 
-  List<int>? upSelectedStock = [];
-  List<int>? downSelectedStock = [];
-  List<bool>? moreButtonClicked = [];
   UpdateIndexBloc updateIndexBloc = UpdateIndexBloc();
 
   StockSelectionBloc stockSelectionBloc = StockSelectionBloc()
@@ -28,7 +23,8 @@ class StockSelectionScreen extends StatelessWidget {
     ));
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    Map<String, dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     return Scaffold(
         backgroundColor: AppColors.gradientOne,
@@ -58,18 +54,29 @@ class StockSelectionScreen extends StatelessWidget {
                     builder: (context, indexState) {
                       if (indexState is UpdateIndexLoadedState) {
                         return CommonButton(
-                          title: "Next",
+                          title: Strings.next,
                           onTap: () {
-                            if ((state.upSelectedStock!.length + state.downSelectedStock!.length) <= 10) {
-                              showSnackBar(context: context, message: "Please select 11 stocks");
+                            if ((state.upSelectedStock!.length +
+                                    state.downSelectedStock!.length) <=
+                                10) {
+                              showSnackBar(
+                                  context: context,
+                                  message: Strings.pleaseSelect11Stocks);
                             } else if (indexState.leaderIndex == null) {
-                              showSnackBar(context: context, message: "Please select leader stock");
+                              showSnackBar(
+                                  context: context,
+                                  message: Strings.pleaseSelectLeaderStock);
                             } else if (indexState.viceLeaderIndex == null) {
-                              showSnackBar(context: context, message: "Please select vice leader stock");
+                              showSnackBar(
+                                  context: context,
+                                  message: Strings.pleaseSelectViceLeaderStock);
                             } else if (indexState.coLeaderIndex == null) {
-                              showSnackBar(context: context, message: "Please select Co leader stock");
+                              showSnackBar(
+                                  context: context,
+                                  message: Strings.pleaseSelectCoLeaderStock);
                             } else {
-                              Navigator.pushNamed(context, RouteList.battleGroundScreen);
+                              Navigator.pushNamed(
+                                  context, RouteList.battleGroundScreen);
                             }
                           },
                         );
@@ -77,7 +84,7 @@ class StockSelectionScreen extends StatelessWidget {
                         return SizedBox.shrink();
                       }
                     },
-                  ).paddingSymmetric(vertical: 20.h, horizontal: 50.w);
+                  ).paddingSymmetric(vertical: 20.h, horizontal: 40.w);
                 }
                 return SizedBox.shrink();
               }),
@@ -105,13 +112,9 @@ class StockSelectionScreen extends StatelessWidget {
             GestureDetector(
                 onTap: () {},
                 child: Container(
-                  height: 30.h,
-                  width: 30.w,
-                  child: Icon(
-                    Icons.newspaper,
-                    color: AppColors.white,
-                    size: 20.sp,
-                  ),
+                  height: 25.h,
+                  width: 25.w,
+                  child: Image.asset("assets/images/news_icon.png"),
                 )),
             SizedBox(
               width: 10.w,
@@ -121,16 +124,8 @@ class StockSelectionScreen extends StatelessWidget {
                 child: Container(
                   height: 30.h,
                   width: 30.w,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.gradientOne,
-                      boxShadow: [BoxShadow(color: AppColors.white, blurRadius: 0.0, spreadRadius: 0.0)],
-                      border: Border.all(color: AppColors.white)),
-                  child: Icon(
-                    Icons.question_mark,
-                    color: AppColors.white,
-                    size: 20.sp,
-                  ),
+                  child:
+                      Image.asset("assets/images/question_mark_icon.png"),
                 )),
           ],
         ),
@@ -144,7 +139,6 @@ class StockSelectionScreen extends StatelessWidget {
       bloc: stockSelectionBloc,
       builder: (context, state) {
         if (state is StockSelectionLoadedState) {
-          print('state...=>${state}');
           return ListView.separated(
               separatorBuilder: (context, index) => SizedBox(
                     height: 5.h,
@@ -170,7 +164,9 @@ class StockSelectionScreen extends StatelessWidget {
                         moreButtonClicked: state.moreButtonClicked,
                         upSelectedStock: state.upSelectedStock));
                     state.showSnackBarForStockSelection == true
-                        ? showSnackBarUsingKey(message: "You have selected 11 stocks, please click next!")
+                        ? showSnackBarUsingKey(
+                            message:
+                                Strings.youHaveSelected11StockPleaseClickNext)
                         : null;
                   },
                   onMoreTap: () {
@@ -179,7 +175,10 @@ class StockSelectionScreen extends StatelessWidget {
                         downSelectedStock: state.downSelectedStock,
                         moreButtonClicked: state.moreButtonClicked,
                         upSelectedStock: state.upSelectedStock));
-                    state.showSnackBarForMore == true ? showSnackBarUsingKey(message: "First select the stock") : null;
+                    state.showSnackBarForMore == true
+                        ? showSnackBarUsingKey(
+                            message: Strings.firstSelectTheStock)
+                        : null;
                   },
                   onTap: () {
                     stockSelectionBloc.add(StockSelectionRemoveEvent(
@@ -196,7 +195,9 @@ class StockSelectionScreen extends StatelessWidget {
                         moreButtonClicked: state.moreButtonClicked,
                         upSelectedStock: state.upSelectedStock));
                     state.showSnackBarForStockSelection == true
-                        ? showSnackBarUsingKey(message: "You have selected 11 stocks, please click next!")
+                        ? showSnackBarUsingKey(
+                            message:
+                                Strings.youHaveSelected11StockPleaseClickNext)
                         : null;
                   },
                   data: args,
@@ -215,7 +216,7 @@ class StockSelectionScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextView(
-              text: "Pick 11 stocks from 22",
+              text: Strings.pick11StocksFrom22,
               fontSize: 12.sp,
             ),
             TextView(
@@ -238,8 +239,11 @@ class StockSelectionScreen extends StatelessWidget {
                         return Container(
                           width: 20.w,
                           decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.white, width: 0.6),
-                              color: index < (state.upSelectedStock!.length + state.downSelectedStock!.length)
+                              border: Border.all(
+                                  color: AppColors.white, width: 0.6),
+                              color: index <
+                                      (state.upSelectedStock!.length +
+                                          state.downSelectedStock!.length)
                                   ? AppColors.gradientOne
                                   : AppColors.white,
                               borderRadius: BorderRadius.circular(10.r)),

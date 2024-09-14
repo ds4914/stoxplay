@@ -4,17 +4,13 @@ class CommonIcon extends StatelessWidget {
   final IconData? icon;
   final double? iconSize;
   final Color? shadowColor;
-  CommonIcon(
-      {super.key,
-      this.icon,
-      this.iconSize,
-      this.shadowColor});
+  CommonIcon({super.key, this.icon, this.iconSize, this.shadowColor});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 30.h,
-        width: 30.w,
+        height: 25.h,
+        width: 25.w,
         decoration: BoxDecoration(
             color: AppColors.white,
             shape: BoxShape.circle,
@@ -25,10 +21,10 @@ class CommonIcon extends StatelessWidget {
                   blurRadius: 1.0)
             ],
             border: Border.all(color: AppColors.blue)),
-        child:  Icon(
-                icon,
-                color: AppColors.blue,
-                size: 15.sp,
-              ));
+        child: Icon(
+          icon,
+          color: AppColors.blue,
+          size: iconSize ?? 15.sp,
+        ));
   }
 }

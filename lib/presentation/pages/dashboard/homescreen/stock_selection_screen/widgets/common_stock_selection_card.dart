@@ -67,14 +67,16 @@ class CommonStockSelectionCard extends StatelessWidget {
                     children: [
                       Image.asset(
                         data['stocks'][index]['image'],
-                        height: 50.h,
-                        width: 50.w,
-                      ).paddingSymmetric(horizontal: 5.w, vertical: 5.h).paddingSymmetric(horizontal: 10.w),
+                        height: 40.h,
+                        width: 40.w,
+                      )
+                          .paddingSymmetric(horizontal: 5.w, vertical: 5.h)
+                          .paddingSymmetric(horizontal: 5.w),
                       Row(
                         children: [
                           TextView(
                             text: "₹${data['stocks'][index]['stockPrice']}",
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontColor: AppColors.black,
                           ),
                           SizedBox(
@@ -101,41 +103,59 @@ class CommonStockSelectionCard extends StatelessWidget {
                                     coLeaderIndex: coLeaderIndex,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                              child: BlocBuilder<UpdateIndexBloc,
+                                  UpdateIndexState>(
                                 bloc: updateIndexBloc,
                                 builder: (context, state) {
                                   if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.leaderIndex}');
                                     leaderIndex = state.leaderIndex;
                                     return Container(
-                                        height: 30.h,
-                                        width: 30.w,
+                                        height: 25.h,
+                                        width: 25.w,
                                         decoration: BoxDecoration(
-                                            color: state.leaderIndex == index ? AppColors.gradientOne : AppColors.white,
+                                            color: state.leaderIndex == index
+                                                ? AppColors.gradientOne
+                                                : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: AppColors.blue,
+                                                  spreadRadius: 1.0,
+                                                  blurRadius: 1.0)
+                                            ],
+                                            border: Border.all(
+                                                color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "L",
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor: state.leaderIndex == index ? AppColors.white : AppColors.color666666,
+                                            fontColor:
+                                                state.leaderIndex == index
+                                                    ? AppColors.white
+                                                    : AppColors.color666666,
                                           ),
                                         ));
                                   }
                                   return Container(
-                                      height: 30.h,
-                                      width: 30.w,
+                                      height: 25.h,
+                                      width: 25.w,
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColors.blue,
+                                                spreadRadius: 1.0,
+                                                blurRadius: 1.0)
+                                          ],
+                                          border: Border.all(
+                                              color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "L",
-                                          fontSize: 15.sp,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.bold,
                                           fontColor: AppColors.color666666,
                                         ),
@@ -144,7 +164,7 @@ class CommonStockSelectionCard extends StatelessWidget {
                               ),
                             ),
                             SizedBox(
-                              width: 2.w,
+                              width: 5.w,
                             ),
                             GestureDetector(
                               onTap: () {
@@ -155,41 +175,60 @@ class CommonStockSelectionCard extends StatelessWidget {
                                     coLeaderIndex: coLeaderIndex,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                              child: BlocBuilder<UpdateIndexBloc,
+                                  UpdateIndexState>(
                                 bloc: updateIndexBloc,
                                 builder: (context, state) {
                                   if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.viceLeaderIndex}');
                                     viceLeaderIndex = state.viceLeaderIndex;
                                     return Container(
-                                        height: 30.h,
-                                        width: 30.w,
+                                        height: 25.h,
+                                        width: 25.w,
                                         decoration: BoxDecoration(
-                                            color: state.viceLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
+                                            color:
+                                                state.viceLeaderIndex == index
+                                                    ? AppColors.gradientOne
+                                                    : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: AppColors.blue,
+                                                  spreadRadius: 1.0,
+                                                  blurRadius: 1.0)
+                                            ],
+                                            border: Border.all(
+                                                color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "VL",
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor: state.viceLeaderIndex == index ? AppColors.white : AppColors.color666666,
+                                            fontColor:
+                                                state.viceLeaderIndex == index
+                                                    ? AppColors.white
+                                                    : AppColors.color666666,
                                           ),
                                         ));
                                   }
                                   return Container(
-                                      height: 30.h,
-                                      width: 30.w,
+                                      height: 25.h,
+                                      width: 25.w,
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColors.blue,
+                                                spreadRadius: 1.0,
+                                                blurRadius: 1.0)
+                                          ],
+                                          border: Border.all(
+                                              color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "VL",
-                                          fontSize: 15.sp,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.bold,
                                           fontColor: AppColors.color666666,
                                         ),
@@ -198,7 +237,7 @@ class CommonStockSelectionCard extends StatelessWidget {
                               ),
                             ).paddingSymmetric(horizontal: 2.w),
                             SizedBox(
-                              width: 2.w,
+                              width: 5.w,
                             ),
                             GestureDetector(
                               onTap: () {
@@ -209,41 +248,59 @@ class CommonStockSelectionCard extends StatelessWidget {
                                     updateCoLeader: true,
                                     viceLeaderIndex: viceLeaderIndex));
                               },
-                              child: BlocBuilder<UpdateIndexBloc, UpdateIndexState>(
+                              child: BlocBuilder<UpdateIndexBloc,
+                                  UpdateIndexState>(
                                 bloc: updateIndexBloc,
                                 builder: (context, state) {
                                   if (state is UpdateIndexLoadedState) {
                                     print('object==>${state.coLeaderIndex}');
                                     coLeaderIndex = state.coLeaderIndex;
                                     return Container(
-                                        height: 30.h,
-                                        width: 30.w,
+                                        height: 25.h,
+                                        width: 25.w,
                                         decoration: BoxDecoration(
-                                            color: state.coLeaderIndex == index ? AppColors.gradientOne : AppColors.white,
+                                            color: state.coLeaderIndex == index
+                                                ? AppColors.gradientOne
+                                                : AppColors.white,
                                             shape: BoxShape.circle,
-                                            boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                            border: Border.all(color: AppColors.blue)),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: AppColors.blue,
+                                                  spreadRadius: 1.0,
+                                                  blurRadius: 1.0)
+                                            ],
+                                            border: Border.all(
+                                                color: AppColors.blue)),
                                         child: Center(
                                           child: TextView(
                                             text: "CL",
-                                            fontSize: 15.sp,
+                                            fontSize: 13.sp,
                                             fontWeight: FontWeight.bold,
-                                            fontColor: state.coLeaderIndex == index ? AppColors.white : AppColors.color666666,
+                                            fontColor:
+                                                state.coLeaderIndex == index
+                                                    ? AppColors.white
+                                                    : AppColors.color666666,
                                           ),
                                         ));
                                   }
                                   return Container(
-                                      height: 30.h,
-                                      width: 30.w,
+                                      height: 25.h,
+                                      width: 25.w,
                                       decoration: BoxDecoration(
                                           color: AppColors.white,
                                           shape: BoxShape.circle,
-                                          boxShadow: [BoxShadow(color: AppColors.blue, spreadRadius: 1.0, blurRadius: 1.0)],
-                                          border: Border.all(color: AppColors.blue)),
+                                          boxShadow: [
+                                            BoxShadow(
+                                                color: AppColors.blue,
+                                                spreadRadius: 1.0,
+                                                blurRadius: 1.0)
+                                          ],
+                                          border: Border.all(
+                                              color: AppColors.blue)),
                                       child: Center(
                                         child: TextView(
                                           text: "CL",
-                                          fontSize: 15.sp,
+                                          fontSize: 13.sp,
                                           fontWeight: FontWeight.bold,
                                           fontColor: AppColors.color666666,
                                         ),
@@ -257,11 +314,7 @@ class CommonStockSelectionCard extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: onUpButtonTap,
-                              child: Icon(
-                                Icons.arrow_circle_up_outlined,
-                                color: AppColors.priceButtonColor,
-                                size: 35.sp,
-                              ),
+                              child: Image.asset("assets/images/up_button.png"),
                             ),
                             SizedBox(
                               width: 2.w,
@@ -270,17 +323,15 @@ class CommonStockSelectionCard extends StatelessWidget {
                                 onTap: onMoreTap,
                                 child: CommonIcon(
                                   icon: Icons.more_horiz,
+                                  iconSize: 15.sp,
                                 )),
                             SizedBox(
                               width: 2.w,
                             ),
                             GestureDetector(
                               onTap: onDownButtonTap,
-                              child: Icon(
-                                Icons.arrow_circle_down,
-                                color: AppColors.downButtonColor,
-                                size: 35.sp,
-                              ),
+                              child:
+                                  Image.asset("assets/images/down_button.png"),
                             ),
                           ],
                         )
@@ -289,20 +340,27 @@ class CommonStockSelectionCard extends StatelessWidget {
             ).paddingSymmetric(horizontal: 5.w, vertical: 5.w),
           ),
           Positioned(
-            left: 90.w,
+            left: 70.w,
             top: 3.h,
             child: Container(
               constraints: BoxConstraints(minWidth: 50.w, maxWidth: 120.w),
               decoration: BoxDecoration(
                   color: AppColors.white,
-                  boxShadow: [BoxShadow(color: AppColors.lightRed, blurRadius: 1.0, spreadRadius: 1.0)],
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10.r), bottomRight: Radius.circular(10.r))),
+                  boxShadow: [
+                    BoxShadow(
+                        color: AppColors.lightRed,
+                        blurRadius: 1.0,
+                        spreadRadius: 1.0)
+                  ],
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.r),
+                      bottomRight: Radius.circular(10.r))),
               child: TextView(
                 text: data['stocks'][index]['stockName'],
                 fontColor: AppColors.black,
                 fontWeight: FontWeight.w600,
                 overflow: TextOverflow.ellipsis,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
                 textAlign: TextAlign.center,
               ).paddingSymmetric(vertical: 10.h, horizontal: 10.w),
             ),

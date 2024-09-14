@@ -4,7 +4,7 @@ import 'package:stoxplay/presentation/pages/auth/login_page.dart';
 import 'package:stoxplay/presentation/pages/auth/otp_screen.dart';
 import 'package:stoxplay/presentation/pages/dashboard/dashboard.dart';
 import 'package:stoxplay/presentation/pages/dashboard/homescreen/battleground_screen/battleground_screen.dart';
-import 'package:stoxplay/presentation/pages/dashboard/homescreen/contest_screen.dart';
+import 'package:stoxplay/presentation/pages/dashboard/homescreen/contest_screen/contest_screen.dart';
 import 'package:stoxplay/presentation/pages/dashboard/homescreen/home_screen.dart';
 import 'package:stoxplay/presentation/pages/dashboard/homescreen/stock_selection_screen/stock_selection_screen.dart';
 

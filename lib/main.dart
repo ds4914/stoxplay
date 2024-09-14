@@ -12,6 +12,9 @@ GlobalKey<ScaffoldMessengerState> snackBarKey = GlobalKey<ScaffoldMessengerState
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   AppComponentBase.instance.init();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 
@@ -29,7 +32,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.colorPrimary),
-          useMaterial3: true,datePickerTheme: DatePickerThemeData(headerBackgroundColor: AppColors.gradientTwo)
+          useMaterial3: true,datePickerTheme: DatePickerThemeData(headerBackgroundColor: AppColors.gradientTwo),
         ),
         onGenerateRoute: (RouteSettings settings) {
           final routes = Routes.getRoutes;

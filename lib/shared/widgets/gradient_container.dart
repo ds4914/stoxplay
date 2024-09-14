@@ -7,7 +7,7 @@ class GradientContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return    Container(
+    return Container(
       height:height?? MediaQuery.of(context).size.height/2.7.h,
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
@@ -17,6 +17,7 @@ class GradientContainer extends StatelessWidget {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
+              stops: [0.4,0.9],
               colors: [
                 AppColors.gradientOne,
                 AppColors.gradientTwo,

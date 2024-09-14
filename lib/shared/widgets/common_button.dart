@@ -16,7 +16,7 @@ class CommonButton extends StatelessWidget {
         height: height?? 45.h,
         width: width?? MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-            border: Border.all(color: AppColors.white),
+            border: Border.all(color: AppColors.lightGrey),
             gradient: LinearGradient(
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
